@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contagem Regressiva - 4° Encompasso SP/Minas</title>
+  <style>
+    body {
+      background-color: black;
+      color: green;
+      font-family: "Digital", sans-serif;
+      text-align: center;
+    }
+
+    .led-panel {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      background-color: black;
+    }
+
+    .led-digit {
+      color: green;
+      font-size: 80px;
+      font-weight: bold;
+      text-align: center;
+      text-shadow: 0 0 5px #fff;
+      margin: 0 10px;
+    }
+  </style>
+  <script>
+    function updateCountdown() {
+      var currentDate = new Date();
+      var targetDate = new Date("2023-11-10T18:00");
+
+      var timeDifference = targetDate.getTime() - currentDate.getTime();
+
+      if (timeDifference <= 0) {
+        clearInterval(countdownInterval);
+        document.getElementById("countdown").innerHTML = "Tempo expirado!";
+        return;
+      }
+
+      var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerHTML = padNumber(days);
+      document.getElementById("hours").innerHTML = padNumber(hours);
+      document.getElementById("minutes").innerHTML = padNumber(minutes);
+      document.getElementById("seconds").innerHTML = padNumber(seconds);
+    }
+
+    function padNumber(number) {
+      return number.toString().padStart(2, "0");
+    }
+
+    var countdownInterval; // Variável para armazenar o identificador do intervalo
+
+    function startCountdown() {
+      clearInterval(countdownInterval); // Limpar intervalo existente (se houver)
+      updateCountdown(); // Atualizar a contagem regressiva imediatamente
+      countdownInterval = setInterval(updateCountdown, 1000); // Atualizar a cada segundo (1000ms)
+    }
+  </script>
+</head>
+<body>
+  <h1>Contagem Regressiva - 4° Encompasso SP/Minas</h1>
+  <div class="led-panel">
+    <div class="led-digit" id="days">00</div>
+    <div class="led-digit">:</div>
+    <div class="led-digit" id="hours">00</div>
+    <div class="led-digit">:</div>
+    <div class="led-digit" id="minutes">00</div>
+    <div class="led-digit">:</div>
+    <div class="led-digit" id="seconds">00</div>
+  </div>
+
+  <script>
+    startCountdown(); // Iniciar a contagem regressiva
+  </script>
+</body>
+</html>
